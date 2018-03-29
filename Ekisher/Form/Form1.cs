@@ -11,7 +11,10 @@ namespace Ekisher
 {
 	public partial class Form1 : Form
 	{
-		EkishaBreaker breaker;
+		//EkishaBreaker breaker;
+		ImageProvider imgProvider;
+		Timer timerDraw = new Timer() { Interval = 10 };
+		int cnt = 0;
 
 		#region コンストラクタ
 		public Form1()
@@ -43,7 +46,14 @@ namespace Ekisher
 		//描画時
 		private void Form1_Paint(object sender, PaintEventArgs e)
 		{
-			breaker?.Draw(e.Graphics);
+			var g = e.Graphics;
+			g.Clear(Color.Black);
+			g.DrawImage(imgProvider.GetFrameImage(Score.Perfect, cnt), new PointF());
+			using (var f = new Font("Meiryo", 10))
+			{
+				g.DrawString(cnt.ToString(), f, Brushes.White, new Point(100, 20));
+			}
+			//breaker?.Draw(e.Graphics);
 		}
 		#endregion
 
@@ -51,20 +61,26 @@ namespace Ekisher
 		//初期化
 		void InitControls()
 		{
-			breaker = new EkishaBreaker();
+			//breaker = new EkishaBreaker();
 			this.Paint += Form1_Paint;
 			this.KeyDown += Form1_KeyDown;
+
+			imgProvider = new ImageProvider();
+			timerDraw.Tick += (s, e) => { if (cnt < 600) { cnt++; } else { cnt = 0; } this.Invalidate(); };
+			timerDraw.Start();
 		}
 
 		//スペースキー押下時
 		void SpaceKeyPressed()
 		{
+			return;
 			throw new NotImplementedException();
 		}
 
 		//リセット
 		private void Reset()
 		{
+			return;
 			throw new NotImplementedException();
 		}
 

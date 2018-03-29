@@ -17,39 +17,43 @@ namespace Ekisher
 		#region メンバ
 		Form TargetForm;
 		Random random = new Random();
-		Timer timerDraw = new Timer() { Interval = 10 };
+		Timer timerProc = new Timer() { Interval = 10 };
 		Font font = new Font("Meiryo", 20);
 		Font font2 = new Font("Meiryo", 40);
 		SolidBrush BarBrush = new SolidBrush(Color.FromArgb(180, 50, 60));
 		Size BorderSize = SystemInformation.Border3DSize;
 		int vValue = 0;
 		int cnt = 0;
+		ImageProvider imgProvider;
 
 		#endregion
 
 
 		#region プロパティ
-		IDifficulty Difficulty { get; set; }
+		/// <summary>
+		/// 選択した難易度
+		/// </summary>
+		public IDifficulty Difficulty { get; set; }
 
 		/// <summary>
 		/// 開始日時
 		/// </summary>
-		DateTime StartTime { get; set; }
+		public DateTime StartTime { get; set; }
 
 		/// <summary>
 		/// 今の状態
 		/// </summary>
-		SequenceType Sequence { get; set; } = SequenceType.Title;
+		public SequenceType Sequence { get; set; } = SequenceType.Title;
 
 		/// <summary>
 		/// 数字が上昇しているか？
 		/// </summary>
-		bool IsUpV { get; set; } = true;
+		public bool IsUpV { get; set; } = true;
 
 		/// <summary>
 		/// 値
 		/// </summary>
-		int VValue
+		public int VValue
 		{
 			get { return vValue; }
 			set
@@ -64,17 +68,17 @@ namespace Ekisher
 		#region コンストラクタ
 		public EkishaBreaker(Form target)
 		{
-
+			TargetForm = target;
+			Init();
 		}
 		#endregion
 
 		#region イベントハンドラ
 		//タイマーチック
-		private void TimerDraw_Tick(object sender, EventArgs e)
+		private void TimerProc_Tick(object sender, EventArgs e)
 		{
-			
+			TargetForm?.Invalidate();
 		}
-
 
 		#endregion
 
@@ -83,7 +87,8 @@ namespace Ekisher
 		private void Init()
 		{
 			StartTime = DateTime.Now;
-			timerDraw.Tick += TimerDraw_Tick;
+			timerProc.Tick += TimerProc_Tick;
+			timerProc.Start();
 		}
 
 		//描画
@@ -137,9 +142,9 @@ namespace Ekisher
 		void DrawStarted(Graphics g)
 		{
 			DateTime now = DateTime.Now;
-			g.FillRectangle(BarBrush, new RectangleF(0f, 0f, this.Width * (VValue / (float)GageMaxValue), 20));
-			if (VValue == 1000) { g.FillRectangle(Brushes.White, new RectangleF(0f, 0f, this.Width, 20)); }
-			g.DrawLine(Pens.White, new Point(0, 20), new Point(this.Width, 20));
+			//g.FillRectangle(BarBrush, new RectangleF(0f, 0f, this.Width * (VValue / (float)GageMaxValue), 20));
+			//if (VValue == 1000) { g.FillRectangle(Brushes.White, new RectangleF(0f, 0f, this.Width, 20)); }
+			//g.DrawLine(Pens.White, new Point(0, 20), new Point(this.Width, 20));
 		}
 
 		//確定後の描画
@@ -156,7 +161,7 @@ namespace Ekisher
 			var txtSize = g.MeasureString(txt, font);
 			//TODO: VValueに応じた表示
 			var caption = GetResultString();
-			g.DrawString((StopTime - StartTime).TotalSeconds.ToString("0.0"), font, Brushes.White, new Point(20, 20));
+			//g.DrawString((StopTime - StartTime).TotalSeconds.ToString("0.0"), font, Brushes.White, new Point(20, 20));
 			using (var img = GetResultImage(g.VisibleClipBounds.Size))
 			{
 				g.DrawImage(img, new Point());
