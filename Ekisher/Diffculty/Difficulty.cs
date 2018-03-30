@@ -13,7 +13,7 @@ namespace Ekisher
 		public int GoodThreshold => 10;
 		public int SoCloseThreshold => 15;
 		public int BadThreshold => 20;
-
+		public int GageRandomAmountDeflection => 100;
 	}
 
 	class Hard : IDifficulty
@@ -24,6 +24,7 @@ namespace Ekisher
 		public int GoodThreshold => 20;
 		public int SoCloseThreshold => 30;
 		public int BadThreshold => 50;
+		public int GageRandomAmountDeflection => 30;
 	}
 
 	class Normal : IDifficulty
@@ -34,6 +35,7 @@ namespace Ekisher
 		public int GoodThreshold => 40;
 		public int SoCloseThreshold => 80;
 		public int BadThreshold => 200;
+		public int GageRandomAmountDeflection => 15;
 	}
 
 	class Easy : IDifficulty
@@ -41,12 +43,10 @@ namespace Ekisher
 		public string Name => "弱い易者";
 		public string Description => "手っ取り早くマルチエンドを見たい方に";
 		public int VeryGoodThreshold => 50;
-
 		public int GoodThreshold => 100;
-
 		public int SoCloseThreshold => 200;
-
 		public int BadThreshold => 500;
+		public int GageRandomAmountDeflection => 5;
 	}
 
 }

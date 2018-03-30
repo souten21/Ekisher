@@ -39,5 +39,10 @@ namespace Ekisher
 		/// 「Bad」になる最大値からの差
 		/// </summary>
 		int BadThreshold { get; }
+
+		/// <summary>
+		/// ゲージ増加乱数値の上限（下限は1）
+		/// </summary>
+		int GageRandomAmountDeflection { get; }
 	}
 }

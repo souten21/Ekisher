@@ -19,6 +19,11 @@ namespace Ekisher
 			img3 = GenerateTestImage(3);
 		}
 
+		public Image GetOpeningImage(int frameCnt)
+		{
+			return img1;//TODO: 
+		}
+
 		public Image GetFrameImage(Score score, int frameCnt)
 		{
 			switch (score)

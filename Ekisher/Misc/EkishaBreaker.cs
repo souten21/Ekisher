@@ -20,11 +20,14 @@ namespace Ekisher
 		Timer timerProc = new Timer() { Interval = 10 };
 		Font font = new Font("Meiryo", 20);
 		Font font2 = new Font("Meiryo", 40);
+
 		SolidBrush BarBrush = new SolidBrush(Color.FromArgb(180, 50, 60));
 		Size BorderSize = SystemInformation.Border3DSize;
 		int vValue = 0;
 		int cnt = 0;
 		ImageProvider imgProvider;
+
+		int[] Powers = new int[3];
 
 		#endregion
 
@@ -155,20 +158,6 @@ namespace Ekisher
 			if (cnt >= 100) { Sequence = SequenceType.Result; }
 		}
 
-		void DrawResult(Graphics g)
-		{
-			var txt = "Rキーでリトライ";
-			var txtSize = g.MeasureString(txt, font);
-			//TODO: VValueに応じた表示
-			var caption = GetResultString();
-			//g.DrawString((StopTime - StartTime).TotalSeconds.ToString("0.0"), font, Brushes.White, new Point(20, 20));
-			using (var img = GetResultImage(g.VisibleClipBounds.Size))
-			{
-				g.DrawImage(img, new Point());
-			}
-			g.DrawString(caption, font2, Brushes.Cyan, GetTextCenterPoint(g, caption, font2));
-			g.DrawString(txt, font, Brushes.White, new Point((int)g.VisibleClipBounds.Width - 20 - (int)txtSize.Width, (int)g.VisibleClipBounds.Height - 20 - (int)txtSize.Height));
-		}
 
 		string GetResultString()
 		{
@@ -178,24 +167,7 @@ namespace Ekisher
 				: "残念") + $"[{VValue.ToString()}]";
 		}
 
-		//
-		Bitmap GetResultImage(SizeF imgSize)
-		{
-			var bmp = new Bitmap((int)imgSize.Width, (int)imgSize.Height);
-			using (var g = Graphics.FromImage(bmp))
-			{
-				g.FillRectangle(Brushes.Red, new Rectangle(100, 100, 100, 100));
-			}
-			return bmp;
-		}
-
-		//文字を中心に描画するための座標を取得します。
-		PointF GetTextCenterPoint(Graphics g, string text, Font f)
-		{
-			var gSize = g.VisibleClipBounds;
-			var drawSize = g.MeasureString(text, f);
-			return new Point((int)gSize.Width / 2 - (int)drawSize.Width / 2, (int)gSize.Height / 2 - (int)drawSize.Height / 2);
-		}
+	
 
 		void Reset()
 		{

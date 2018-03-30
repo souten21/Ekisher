@@ -76,4 +76,11 @@ namespace Ekisher
 		/// </summary>
 		Hell
 	}
+
+	public enum GageType
+	{
+		MinMax,
+		Centering,
+		Balance
+	}
 }

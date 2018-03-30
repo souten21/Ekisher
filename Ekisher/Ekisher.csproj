@@ -43,8 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Difficulty.cs" />
-    <Compile Include="IDifficulty.cs" />
+    <Compile Include="Diffculty\Difficulty.cs" />
+    <Compile Include="Diffculty\IDifficulty.cs" />
+    <Compile Include="GageDrawer.cs" />
     <Compile Include="Misc\ImageProvider.cs" />
     <Compile Include="Misc\EkishaBreaker.cs" />
     <Compile Include="Misc\Enums.cs" />
@@ -79,8 +80,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Diffculty\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
